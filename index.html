@@ -1,3 +1,53 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lergaming.fr - Launcher Du R</title>
+    <meta
+      name="description"
+      content="Lergaming.fr regroupe les jeux Du R et le téléchargement officiel du Launcher Du R pour Windows."
+    >
+    <style>
+      :root {
+        --page: #f4f4f5;
+        --bg: #030711;
+        --panel: rgba(255, 255, 255, 0.045);
+        --panel-strong: rgba(255, 255, 255, 0.07);
+        --line: rgba(255, 255, 255, 0.12);
+        --line-soft: rgba(255, 255, 255, 0.08);
+        --text: #ffffff;
+        --muted: #b9c0cf;
+        --muted-2: #7e8798;
+        --pink: #ec177b;
+        --violet: #6427ec;
+        --blue: #0b6dff;
+        --green: #17d57b;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        color: var(--text);
+        background: var(--page);
+        font-family: "Segoe UI", Arial, sans-serif;
+        letter-spacing: 0;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      a {
+        color: inherit;
         text-decoration: none;
       }
 
@@ -248,3 +298,597 @@
         align-items: center;
         justify-content: space-between;
         gap: 16px;
+        margin-bottom: 12px;
+      }
+
+      .preview-title-row strong {
+        font-size: 15px;
+      }
+
+      .online {
+        color: #b8ffd8;
+        font-size: 11px;
+        font-weight: 800;
+      }
+
+      .online::before {
+        content: "";
+        display: inline-block;
+        width: 7px;
+        height: 7px;
+        margin-right: 6px;
+        border-radius: 50%;
+        background: var(--green);
+        box-shadow: 0 0 10px rgba(23, 213, 123, 0.7);
+      }
+
+      .preview-games {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .preview-card {
+        min-width: 0;
+        padding: 9px;
+        border: 1px solid var(--line-soft);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.035);
+      }
+
+      .preview-card img {
+        width: 100%;
+        aspect-ratio: 1.2;
+        object-fit: cover;
+        border-radius: 6px;
+      }
+
+      .preview-card strong {
+        display: block;
+        min-height: 26px;
+        margin-top: 8px;
+        font-size: 11px;
+        line-height: 1.2;
+      }
+
+      .preview-card span {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 24px;
+        width: 100%;
+        margin-top: 8px;
+        border: 1px solid rgba(236, 23, 123, 0.45);
+        border-radius: 999px;
+        color: #ff6eb1;
+        font-size: 10px;
+        font-weight: 900;
+      }
+
+      .content-panel {
+        width: min(1080px, calc(100% - 48px));
+        margin: 0 auto 38px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02)),
+          rgba(0, 0, 0, 0.12);
+      }
+
+      .section {
+        padding: 22px;
+      }
+
+      .section + .section {
+        border-top: 1px solid var(--line-soft);
+      }
+
+      .section h2 {
+        margin: 0 0 16px;
+        font-size: 24px;
+        line-height: 1.1;
+      }
+
+      .games-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .game-card {
+        display: grid;
+        grid-template-columns: 132px 1fr;
+        gap: 16px;
+        min-height: 132px;
+        padding: 12px;
+        border: 1px solid var(--line-soft);
+        border-radius: 8px;
+        background: var(--panel);
+      }
+
+      .game-card img {
+        width: 100%;
+        height: 108px;
+        object-fit: cover;
+        border-radius: 7px;
+      }
+
+      .game-info {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+      }
+
+      .game-info h3 {
+        margin: 0;
+        font-size: 17px;
+        line-height: 1.2;
+      }
+
+      .game-info p {
+        margin: 8px 0 14px;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.45;
+      }
+
+      .game-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: auto;
+      }
+
+      .status-pill {
+        min-height: 26px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        color: #a5ffd0;
+        background: rgba(23, 213, 123, 0.16);
+        font-size: 11px;
+        font-weight: 900;
+      }
+
+      .game-version {
+        color: #ffffff;
+        font-size: 12px;
+        font-weight: 800;
+        white-space: nowrap;
+      }
+
+      .steps-grid {
+        display: grid;
+        grid-template-columns: 1fr 38px 1fr 38px 1fr;
+        align-items: center;
+        gap: 18px;
+      }
+
+      .step-card {
+        display: grid;
+        grid-template-columns: 42px 64px 1fr;
+        gap: 14px;
+        align-items: center;
+        min-height: 90px;
+        padding: 16px;
+        border: 1px solid var(--line-soft);
+        border-radius: 8px;
+        background: var(--panel-strong);
+      }
+
+      .step-number {
+        display: grid;
+        place-items: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: var(--pink);
+        font-size: 14px;
+        font-weight: 900;
+      }
+
+      .step-icon {
+        display: grid;
+        place-items: center;
+        width: 58px;
+        height: 58px;
+        border: 1px solid var(--line-soft);
+        border-radius: 14px;
+        background: rgba(0, 0, 0, 0.16);
+      }
+
+      .step-icon svg {
+        width: 28px;
+        height: 28px;
+        color: #dfe4ef;
+      }
+
+      .step-card h3 {
+        margin: 0;
+        font-size: 14px;
+      }
+
+      .step-card p {
+        margin: 6px 0 0;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.45;
+      }
+
+      .step-arrow {
+        color: #9199aa;
+        font-size: 30px;
+        text-align: center;
+      }
+
+      .footer {
+        padding: 0 22px 14px;
+        color: #bdc3cf;
+        font-size: 13px;
+        text-align: center;
+      }
+
+      .loading-note {
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      @media (max-width: 980px) {
+        .page-frame {
+          width: 100%;
+          margin: 0;
+          border: 0;
+        }
+
+        .topbar-inner,
+        .hero,
+        .content-panel {
+          width: min(100% - 32px, 760px);
+        }
+
+        .hero {
+          grid-template-columns: 1fr;
+          gap: 28px;
+        }
+
+        .launcher-preview {
+          max-width: 560px;
+        }
+
+        .games-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .steps-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .step-arrow {
+          display: none;
+        }
+      }
+
+      @media (max-width: 680px) {
+        html,
+        body {
+          overflow-x: hidden;
+        }
+
+        .page-frame {
+          width: 100%;
+          max-width: 100%;
+        }
+
+        .page-frame * {
+          min-width: 0;
+        }
+
+        .topbar-inner,
+        .hero,
+        .content-panel {
+          width: calc(100% - 24px);
+        }
+
+        .topbar-inner {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 14px;
+          padding: 18px 0;
+        }
+
+        .brand {
+          width: 100%;
+          justify-content: space-between;
+          gap: 16px;
+        }
+
+        .brand img {
+          width: 112px;
+          flex: 0 0 auto;
+        }
+
+        .brand strong {
+          display: none;
+          padding-left: 0;
+          border-left: 0;
+        }
+
+        .nav {
+          display: grid;
+          grid-template-columns: 0.8fr 1fr 1.15fr;
+          width: 100%;
+          gap: 8px;
+        }
+
+        .nav a {
+          flex: none;
+          min-width: 0;
+          padding: 0 8px;
+          font-size: 12px;
+        }
+
+        .nav .download-link {
+          min-width: 0;
+        }
+
+        .hero {
+          min-height: 0;
+          padding: 34px 0;
+        }
+
+        .hero h1 {
+          font-size: 42px;
+        }
+
+        .hero p {
+          font-size: 18px;
+        }
+
+        .primary-button {
+          width: 100%;
+          padding: 0 20px;
+          font-size: 16px;
+        }
+
+        .hero-meta {
+          gap: 10px;
+        }
+
+        .hero-meta span + span::before {
+          display: none;
+        }
+
+        .launcher-preview {
+          display: none;
+        }
+
+        .game-card {
+          grid-template-columns: 86px minmax(0, 1fr);
+          gap: 12px;
+        }
+
+        .game-card img {
+          height: 86px;
+        }
+
+        .game-info p {
+          display: -webkit-box;
+          overflow: hidden;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+        }
+
+        .game-meta {
+          flex-wrap: wrap;
+          justify-content: flex-start;
+        }
+
+        .step-card {
+          grid-template-columns: 34px 54px 1fr;
+          padding: 14px;
+        }
+
+        .step-icon {
+          width: 52px;
+          height: 52px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-frame">
+      <header class="topbar">
+        <div class="topbar-inner">
+          <a class="brand" href="#accueil" aria-label="Retour à l'accueil">
+            <img data-config="launcher.logo" src="images/launcher-logo.png" alt="Launcher Du R">
+            <strong data-config="site.name">Lergaming.fr</strong>
+          </a>
+
+          <nav class="nav" aria-label="Navigation principale">
+            <a href="#jeux">Jeux</a>
+            <a href="#installation">Installation</a>
+            <a class="download-link" data-download-link href="#">Télécharger</a>
+          </nav>
+        </div>
+      </header>
+
+      <main id="accueil">
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero-copy">
+            <h1 id="hero-title" data-config="launcher.name">Launcher Du R</h1>
+            <p data-config="site.tagline">Tous les jeux Du R au même endroit.</p>
+
+            <a class="primary-button" data-download-link href="#">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3v11m0 0 4-4m-4 4-4-4M5 19h14" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+              <span data-config="launcher.downloadLabel">Télécharger le launcher</span>
+            </a>
+
+            <div class="hero-meta" aria-label="Informations du launcher">
+              <span>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M4 5.5 11 4v7.5H4zm9-1.9 7-1.5v9.4h-7zM4 13h7v7.2l-7-1.5zm9 0h7v9l-7-1.5z" fill="currentColor"></path>
+                </svg>
+                <span data-config="launcher.platform">Windows</span>
+              </span>
+              <span>Version <span data-config="launcher.version">2.0.6</span></span>
+              <span>ZIP <span data-config="launcher.fileSize">6,1 Mo</span></span>
+              <a data-notes-link data-config="launcher.notesLabel" href="#">Notes v2.0.6</a>
+            </div>
+          </div>
+
+          <aside class="launcher-preview" aria-label="Aperçu du launcher">
+            <div class="preview-top">
+              <span data-config="launcher.name">Launcher Du R</span>
+              <span class="preview-dots" aria-hidden="true">○ − □ ×</span>
+            </div>
+            <div class="preview-body">
+              <div class="preview-sidebar">
+                <span class="preview-tab active">Accueil</span>
+                <span class="preview-tab">Jeux</span>
+                <span class="preview-tab">Téléchargements</span>
+                <span class="preview-tab">Paramètres</span>
+              </div>
+              <div class="preview-content">
+                <div class="preview-title-row">
+                  <strong>Mes jeux</strong>
+                  <span class="online">En ligne</span>
+                </div>
+                <div class="preview-games" data-preview-games>
+                  <p class="loading-note">Chargement...</p>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </section>
+
+        <div class="content-panel">
+          <section class="section" id="jeux" aria-labelledby="games-title">
+            <h2 id="games-title">Jeux disponibles</h2>
+            <div class="games-grid" data-games-list>
+              <p class="loading-note">Chargement des jeux...</p>
+            </div>
+          </section>
+
+          <section class="section" id="installation" aria-labelledby="install-title">
+            <h2 id="install-title">Installation</h2>
+            <div class="steps-grid" data-installation-steps>
+              <p class="loading-note">Chargement des étapes...</p>
+            </div>
+          </section>
+
+          <footer class="footer">
+            <span data-config="site.footerText">© 2025 Lergaming.fr — Tous droits réservés.</span>
+          </footer>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      const iconTemplates = {
+        download: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 19h14" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        folder: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 6.5h6l2 2h9v9.5a2 2 0 0 1-2 2h-15z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path></svg>',
+        play: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"></path></svg>'
+      };
+
+      const getValue = (source, path) =>
+        path.split(".").reduce((value, key) => (value && value[key] !== undefined ? value[key] : ""), source);
+
+      const setText = (selector, value) => {
+        document.querySelectorAll(selector).forEach((node) => {
+          node.textContent = value;
+        });
+      };
+
+      const setConfigText = (config) => {
+        document.querySelectorAll("[data-config]").forEach((node) => {
+          const value = getValue(config, node.dataset.config);
+          if (value === undefined || value === null || value === "") return;
+
+          if (node.tagName === "IMG") {
+            node.src = value;
+            if (node.dataset.config === "launcher.logo") {
+              node.alt = config.launcher?.name || "Launcher Du R";
+            }
+            return;
+          }
+
+          node.textContent = value;
+        });
+      };
+
+      const renderPreviewGames = (games) => {
+        const container = document.querySelector("[data-preview-games]");
+        container.innerHTML = games.slice(0, 3).map((game) => `
+          <article class="preview-card">
+            <img src="${game.image}" alt="${game.name}">
+            <strong>${game.name}</strong>
+            <span>Jouer</span>
+          </article>
+        `).join("");
+      };
+
+      const renderGames = (games) => {
+        const container = document.querySelector("[data-games-list]");
+        container.innerHTML = games.map((game) => `
+          <article class="game-card">
+            <img src="${game.image}" alt="${game.name}">
+            <div class="game-info">
+              <h3>${game.name}</h3>
+              <p>${game.description}</p>
+              <div class="game-meta">
+                <span class="status-pill">${game.status}</span>
+                <span class="game-version">v${game.version}</span>
+              </div>
+            </div>
+          </article>
+        `).join("");
+      };
+
+      const renderSteps = (steps) => {
+        const container = document.querySelector("[data-installation-steps]");
+        container.innerHTML = steps.map((step, index) => `
+          ${index > 0 ? '<div class="step-arrow" aria-hidden="true">→</div>' : ""}
+          <article class="step-card">
+            <span class="step-number">${index + 1}</span>
+            <span class="step-icon">${iconTemplates[step.icon] || iconTemplates.download}</span>
+            <span>
+              <h3>${step.title}</h3>
+              <p>${step.text}</p>
+            </span>
+          </article>
+        `).join("");
+      };
+
+      const applyConfig = (config) => {
+        document.title = config.site?.browserTitle || document.title;
+        setConfigText(config);
+
+        document.querySelectorAll("[data-download-link]").forEach((link) => {
+          link.href = config.launcher.downloadUrl;
+        });
+
+        document.querySelectorAll("[data-notes-link]").forEach((link) => {
+          link.href = config.launcher.notesUrl;
+        });
+
+        renderPreviewGames(config.games || []);
+        renderGames(config.games || []);
+        renderSteps(config.installationSteps || []);
+      };
+
+      fetch("site-config.json", { cache: "no-store" })
+        .then((response) => {
+          if (!response.ok) throw new Error("Configuration introuvable");
+          return response.json();
+        })
+        .then(applyConfig)
+        .catch((error) => {
+          console.error(error);
+          setText("[data-games-list]", "Impossible de charger site-config.json.");
+          setText("[data-installation-steps]", "Vérifiez que site-config.json est bien à la racine du dépôt.");
+        });
+    </script>
+  </body>
+</html>
