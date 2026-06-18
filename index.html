@@ -1,776 +1,250 @@
-<!doctype html>
-<html lang="fr">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Lergaming.fr - Launcher Du R</title>
-    <meta
-      name="description"
-      content="Lergaming.fr regroupe les jeux Du R et le téléchargement officiel du Launcher Du R pour Windows."
-    >
-    <style>
-      :root {
-        --bg: #05060b;
-        --ink: #ffffff;
-        --muted: #c9cde8;
-        --line: rgba(255, 255, 255, 0.16);
-        --panel: rgba(6, 8, 20, 0.88);
-        --panel-strong: rgba(10, 12, 29, 0.94);
-        --pink: #ff2bbd;
-        --blue: #05a9ff;
-        --green: #20f074;
-        --amber: #ffc44d;
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      html {
-        scroll-behavior: smooth;
-      }
-
-      body {
-        min-height: 100%;
-        margin: 0;
-        color: var(--ink);
-        background: var(--bg);
-        font-family: "Segoe UI", Arial, sans-serif;
-        letter-spacing: 0;
-      }
-
-      img {
-        display: block;
-        max-width: 100%;
-      }
-
-      a {
-        color: inherit;
         text-decoration: none;
       }
 
-      .site {
+      button,
+      a {
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .page-frame {
+        width: min(1180px, calc(100% - 40px));
+        margin: 30px auto;
         overflow: hidden;
+        border: 1px solid rgba(0, 0, 0, 0.1);
         background:
-          linear-gradient(180deg, rgba(5, 6, 11, 0.22), #05060b 780px),
-          #05060b;
+          linear-gradient(130deg, rgba(12, 112, 255, 0.08), transparent 34%),
+          linear-gradient(330deg, rgba(236, 23, 123, 0.12), transparent 38%),
+          var(--bg);
+        box-shadow: 0 22px 54px rgba(0, 0, 0, 0.2);
       }
 
       .topbar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 20;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        background: rgba(5, 6, 11, 0.76);
-        backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--line-soft);
+        background: rgba(0, 0, 0, 0.18);
       }
 
       .topbar-inner {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 24px;
-        width: min(1160px, calc(100% - 32px));
-        min-height: 76px;
+        gap: 28px;
+        width: min(1080px, calc(100% - 48px));
+        min-height: 64px;
         margin: 0 auto;
       }
 
       .brand {
         display: flex;
         align-items: center;
+        gap: 22px;
         min-width: 0;
-        gap: 14px;
       }
 
       .brand img {
-        width: 168px;
-        height: auto;
-        filter: drop-shadow(0 0 18px rgba(255, 43, 189, 0.48));
+        width: 122px;
+        height: 34px;
+        object-fit: contain;
+        filter: drop-shadow(0 0 10px rgba(236, 23, 123, 0.55));
       }
 
       .brand strong {
-        display: inline-flex;
-        align-items: center;
-        min-height: 34px;
-        padding-left: 14px;
-        border-left: 1px solid rgba(255, 255, 255, 0.18);
-        font-size: 18px;
+        padding-left: 22px;
+        border-left: 1px solid var(--line);
+        font-size: 15px;
+        font-weight: 800;
         white-space: nowrap;
       }
 
       .nav {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 18px;
       }
 
       .nav a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         min-height: 42px;
-        padding: 11px 14px;
-        border-radius: 8px;
-        color: #e9e9ff;
-        font-size: 15px;
-        font-weight: 700;
+        padding: 0 10px;
+        color: #f2f4fb;
+        font-size: 13px;
+        font-weight: 800;
       }
 
       .nav a:hover,
       .nav a:focus-visible {
         color: #ffffff;
-        background: rgba(255, 255, 255, 0.09);
         outline: 0;
       }
 
-      .download-mini {
-        border: 1px solid rgba(32, 240, 116, 0.62);
-        color: #c9ffdc;
-        background: rgba(7, 28, 19, 0.58);
+      .nav .download-link {
+        min-width: 112px;
+        padding: 0 20px;
+        border-radius: 8px;
+        background: linear-gradient(105deg, var(--pink), var(--violet));
+        box-shadow: 0 12px 24px rgba(236, 23, 123, 0.24);
       }
 
       .hero {
-        position: relative;
-        min-height: 680px;
-        padding: 148px 0 86px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-        isolation: isolate;
-      }
-
-      .hero::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        z-index: -2;
-        background-image:
-          linear-gradient(90deg, rgba(5, 6, 11, 0.96) 0%, rgba(5, 6, 11, 0.78) 42%, rgba(5, 6, 11, 0.2) 100%),
-          linear-gradient(180deg, rgba(5, 6, 11, 0.2), #05060b 96%),
-          url("launcher/assets/launcher-mockup-reference.png");
-        background-position: center;
-        background-size: cover;
-      }
-
-      .hero::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        z-index: -1;
-        background-image:
-          linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-        background-size: 54px 54px;
-        opacity: 0.36;
-        mask-image: linear-gradient(90deg, #000 0%, transparent 72%);
-      }
-
-      .hero-inner,
-      .section-inner {
-        width: min(1160px, calc(100% - 32px));
-        margin: 0 auto;
-      }
-
-      .hero-content {
-        max-width: 660px;
-      }
-
-      .eyebrow {
-        display: inline-flex;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(360px, 480px);
         align-items: center;
-        gap: 10px;
-        min-height: 34px;
-        margin: 0 0 22px;
-        padding: 7px 12px;
-        border: 1px solid rgba(32, 240, 116, 0.52);
-        border-radius: 8px;
-        color: #ceffdf;
-        background: rgba(5, 26, 17, 0.74);
-        font-size: 14px;
-        font-weight: 800;
-        text-transform: uppercase;
+        gap: 54px;
+        width: min(1080px, calc(100% - 48px));
+        min-height: 300px;
+        margin: 0 auto;
+        padding: 34px 0 28px;
       }
 
-      .eyebrow::before {
-        content: "";
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: var(--green);
-        box-shadow: 0 0 14px rgba(32, 240, 116, 0.84);
-      }
-
-      h1 {
+      .hero h1 {
         margin: 0;
-        font-size: 68px;
-        line-height: 0.96;
-        font-weight: 950;
-        text-transform: uppercase;
+        font-size: clamp(42px, 5vw, 54px);
+        line-height: 1;
+        font-weight: 900;
       }
 
       .hero p {
-        max-width: 570px;
-        margin: 24px 0 0;
-        color: var(--muted);
+        margin: 12px 0 0;
+        color: #d6dae4;
         font-size: 22px;
-        line-height: 1.48;
+        line-height: 1.35;
       }
 
-      .hero-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 14px;
-        margin-top: 34px;
-      }
-
-      .button {
+      .primary-button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 10px;
+        gap: 12px;
         min-height: 56px;
-        padding: 0 22px;
+        margin-top: 26px;
+        padding: 0 32px;
+        border: 0;
         border-radius: 8px;
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        font-size: 17px;
+        color: #ffffff;
+        background: linear-gradient(105deg, var(--pink), #9035f4 58%, #075dff);
+        font-size: 18px;
         font-weight: 900;
-        transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+        box-shadow: 0 18px 34px rgba(7, 93, 255, 0.24), 0 16px 28px rgba(236, 23, 123, 0.24);
       }
 
-      .button:hover,
-      .button:focus-visible {
-        transform: translateY(-2px);
+      .primary-button:hover,
+      .primary-button:focus-visible {
+        transform: translateY(-1px);
         outline: 0;
       }
 
-      .button-primary {
-        border: 0;
-        color: #ffffff;
-        background: linear-gradient(105deg, #ff167a, #7b26ff 48%, #05a9ff);
-        box-shadow: 0 14px 38px rgba(5, 169, 255, 0.24), 0 14px 40px rgba(255, 22, 122, 0.22);
-      }
-
-      .button-secondary {
-        color: #eef1ff;
-        background: rgba(255, 255, 255, 0.08);
-      }
-
-      .button-secondary:hover,
-      .button-secondary:focus-visible {
-        border-color: rgba(255, 255, 255, 0.34);
-        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
-      }
-
-      .download-icon,
-      .note-icon {
+      .primary-button svg {
         width: 20px;
         height: 20px;
-        flex: 0 0 auto;
       }
 
       .hero-meta {
         display: flex;
         flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 26px;
-        color: #e6e8ff;
+        gap: 16px;
+        align-items: center;
+        margin-top: 22px;
+        color: #d8dce8;
+        font-size: 14px;
+        font-weight: 700;
       }
 
       .hero-meta span {
-        min-height: 36px;
-        padding: 9px 12px;
-        border: 1px solid rgba(255, 255, 255, 0.14);
-        border-radius: 8px;
-        background: rgba(0, 0, 0, 0.24);
-        font-size: 14px;
-        font-weight: 800;
-      }
-
-      .next-hint {
-        position: absolute;
-        left: 50%;
-        bottom: 18px;
-        transform: translateX(-50%);
-        color: rgba(255, 255, 255, 0.74);
-        font-size: 13px;
-        font-weight: 800;
-        text-transform: uppercase;
-      }
-
-      .section {
-        padding: 70px 0;
-      }
-
-      .section.alt {
-        background:
-          linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0)),
-          #070812;
-      }
-
-      .section-head {
-        display: flex;
-        align-items: end;
-        justify-content: space-between;
-        gap: 22px;
-        margin-bottom: 26px;
-      }
-
-      h2 {
-        margin: 0;
-        font-size: 34px;
-        line-height: 1.1;
-      }
-
-      .section-head p {
-        max-width: 650px;
-        margin: 10px 0 0;
-        color: var(--muted);
-        font-size: 17px;
-        line-height: 1.55;
-      }
-
-      .version-badge {
-        min-height: 42px;
-        padding: 10px 14px;
-        border: 1px solid rgba(32, 240, 116, 0.42);
-        border-radius: 8px;
-        color: #d7ffe5;
-        background: rgba(7, 28, 19, 0.52);
-        font-weight: 900;
-        white-space: nowrap;
-      }
-
-      .download-panel {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        gap: 24px;
+        display: inline-flex;
         align-items: center;
-        padding: 28px;
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        background:
-          linear-gradient(135deg, rgba(255, 43, 189, 0.14), transparent 38%),
-          linear-gradient(315deg, rgba(5, 169, 255, 0.12), transparent 38%),
-          var(--panel-strong);
-      }
-
-      .download-panel h3 {
-        margin: 0;
-        font-size: 26px;
-      }
-
-      .download-panel p {
-        max-width: 720px;
-        margin: 10px 0 0;
-        color: var(--muted);
-        line-height: 1.55;
-      }
-
-      .game-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 18px;
-      }
-
-      .game-card {
-        overflow: hidden;
-        border: 1px solid rgba(255, 255, 255, 0.14);
-        border-radius: 8px;
-        background: var(--panel);
-      }
-
-      .game-card img {
-        width: 100%;
-        aspect-ratio: 16 / 10;
-        object-fit: cover;
-        background: #0b0d1b;
-      }
-
-      .game-body {
-        padding: 18px;
-      }
-
-      .game-body h3 {
-        margin: 0;
-        font-size: 21px;
-      }
-
-      .game-body p {
-        min-height: 52px;
-        margin: 9px 0 16px;
-        color: var(--muted);
-        font-size: 15px;
-        line-height: 1.45;
-      }
-
-      .tag-row {
-        display: flex;
-        flex-wrap: wrap;
         gap: 8px;
       }
 
-      .tag {
-        min-height: 32px;
-        padding: 7px 10px;
-        border: 1px solid rgba(255, 255, 255, 0.14);
-        border-radius: 8px;
-        color: #eff1ff;
-        background: rgba(255, 255, 255, 0.06);
-        font-size: 13px;
-        font-weight: 800;
+      .hero-meta a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 28px;
+        padding: 0 10px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: #eef2ff;
       }
 
-      .tag.ok {
-        border-color: rgba(32, 240, 116, 0.42);
-        color: #d7ffe5;
+      .hero-meta span + span::before {
+        content: "";
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: var(--muted-2);
+        margin-right: 8px;
       }
 
-      .tag.update {
-        border-color: rgba(255, 196, 77, 0.5);
-        color: #ffe6a8;
-      }
-
-      .steps {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 18px;
-        counter-reset: steps;
-      }
-
-      .step {
-        position: relative;
-        min-height: 150px;
-        padding: 22px;
-        border: 1px solid rgba(255, 255, 255, 0.13);
-        border-radius: 8px;
-        background: rgba(255, 255, 255, 0.055);
-        counter-increment: steps;
-      }
-
-      .step::before {
-        content: counter(steps);
-        display: grid;
-        place-items: center;
-        width: 38px;
-        height: 38px;
-        margin-bottom: 18px;
-        border-radius: 8px;
-        color: #061009;
-        background: var(--green);
-        font-weight: 950;
-      }
-
-      .step h3 {
-        margin: 0;
-        font-size: 20px;
-      }
-
-      .step p {
-        margin: 8px 0 0;
+      .hero-meta svg {
+        width: 17px;
+        height: 17px;
         color: var(--muted);
-        line-height: 1.48;
       }
 
-      .footer {
-        padding: 32px 0 42px;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        color: #aeb4d8;
+      .launcher-preview {
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.025)),
+          rgba(1, 5, 14, 0.92);
+        box-shadow: 0 18px 38px rgba(0, 0, 0, 0.28);
       }
 
-      .footer-inner {
+      .preview-top {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 18px;
-        width: min(1160px, calc(100% - 32px));
-        margin: 0 auto;
-        font-size: 14px;
-      }
-
-      .footer a {
-        color: #dce0ff;
+        gap: 12px;
+        min-height: 30px;
+        padding-bottom: 10px;
+        color: #d9deea;
+        font-size: 11px;
         font-weight: 800;
       }
 
-      @media (max-width: 980px) {
-        .topbar {
-          position: static;
-        }
-
-        .topbar-inner {
-          flex-direction: column;
-          align-items: flex-start;
-          padding: 16px 0;
-        }
-
-        .nav {
-          width: 100%;
-          flex-wrap: wrap;
-        }
-
-        .nav a {
-          flex: 1 1 auto;
-          text-align: center;
-        }
-
-        .hero {
-          min-height: 620px;
-          padding-top: 74px;
-        }
-
-        .hero::before {
-          background-image:
-            linear-gradient(180deg, rgba(5, 6, 11, 0.9) 0%, rgba(5, 6, 11, 0.78) 48%, #05060b 100%),
-            url("launcher/assets/launcher-mockup-reference.png");
-          background-position: center top;
-        }
-
-        h1 {
-          font-size: 52px;
-        }
-
-        .hero p {
-          font-size: 20px;
-        }
-
-        .download-panel,
-        .game-grid,
-        .steps {
-          grid-template-columns: 1fr;
-        }
-
-        .download-panel {
-          align-items: stretch;
-        }
+      .preview-dots {
+        display: flex;
+        gap: 10px;
+        color: #7c8494;
       }
 
-      @media (max-width: 640px) {
-        .brand {
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 8px;
-        }
-
-        .brand img {
-          width: 150px;
-        }
-
-        .brand strong {
-          padding-left: 0;
-          border-left: 0;
-          white-space: normal;
-        }
-
-        .hero {
-          min-height: 620px;
-          padding-bottom: 72px;
-        }
-
-        h1 {
-          font-size: 40px;
-        }
-
-        .hero p {
-          font-size: 18px;
-        }
-
-        .button,
-        .download-panel .button {
-          width: 100%;
-        }
-
-        .section {
-          padding: 48px 0;
-        }
-
-        .section-head {
-          display: block;
-        }
-
-        .version-badge {
-          display: inline-flex;
-          align-items: center;
-          margin-top: 16px;
-        }
-
-        .download-panel {
-          padding: 20px;
-        }
-
-        .footer-inner {
-          display: block;
-        }
-
-        .footer-inner a {
-          display: inline-block;
-          margin-top: 10px;
-        }
+      .preview-body {
+        display: grid;
+        grid-template-columns: 104px 1fr;
+        min-height: 210px;
+        border: 1px solid var(--line-soft);
+        border-radius: 8px;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.025);
       }
-    </style>
-  </head>
-  <body>
-    <div class="site">
-      <header class="topbar">
-        <div class="topbar-inner">
-          <a class="brand" href="#accueil" aria-label="Retour à l'accueil Lergaming.fr">
-            <img src="images/launcher-logo.png" alt="Launcher Du R">
-            <strong>Lergaming.fr</strong>
-          </a>
-          <nav class="nav" aria-label="Navigation principale">
-            <a href="#telechargement">Téléchargement</a>
-            <a href="#jeux">Jeux</a>
-            <a href="#installation">Installation</a>
-            <a class="download-mini" href="releases/LauncherDuR-Windows-2.0.6.zip" download>Launcher Windows</a>
-          </nav>
-        </div>
-      </header>
 
-      <main id="accueil">
-        <section class="hero" aria-labelledby="hero-title">
-          <div class="hero-inner">
-            <div class="hero-content">
-              <p class="eyebrow">Launcher Windows disponible</p>
-              <h1 id="hero-title">Lergaming.fr</h1>
-              <p>
-                Le point de départ pour télécharger le Launcher Du R, installer les jeux et garder Ballon Rush du R,
-                Flash Carton du R et les prochains titres toujours à jour.
-              </p>
+      .preview-sidebar {
+        padding: 12px;
+        border-right: 1px solid var(--line-soft);
+        background: rgba(0, 0, 0, 0.16);
+      }
 
-              <div class="hero-actions" aria-label="Actions principales">
-                <a class="button button-primary" href="releases/LauncherDuR-Windows-2.0.6.zip" download>
-                  <svg class="download-icon" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M12 3v11m0 0 4-4m-4 4-4-4M5 19h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                  Télécharger le launcher
-                </a>
-                <a class="button button-secondary" href="releases/LauncherDuR-v2.0.6-notes.md">
-                  <svg class="note-icon" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M7 3h7l3 3v15H7zM14 3v4h4M10 12h5M10 16h5" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                  Notes v2.0.6
-                </a>
-              </div>
+      .preview-tab {
+        display: block;
+        padding: 8px 10px;
+        border-radius: 6px;
+        color: #c7cdd9;
+        font-size: 11px;
+        font-weight: 800;
+      }
 
-              <div class="hero-meta" aria-label="Informations de version">
-                <span>Windows</span>
-                <span>Version launcher 2.0.6</span>
-                <span>Fichier ZIP 6,1 Mo</span>
-              </div>
-            </div>
-          </div>
-          <a class="next-hint" href="#telechargement">Voir le téléchargement</a>
-        </section>
+      .preview-tab.active {
+        color: #ffffff;
+        background: linear-gradient(105deg, rgba(236, 23, 123, 0.7), rgba(100, 39, 236, 0.52));
+      }
 
-        <section class="section" id="telechargement" aria-labelledby="download-title">
-          <div class="section-inner">
-            <div class="section-head">
-              <div>
-                <h2 id="download-title">Téléchargement officiel</h2>
-                <p>
-                  Le launcher centralise les installations et les mises à jour. Les jeux se récupèrent ensuite depuis
-                  le launcher, sans chercher les fichiers un par un.
-                </p>
-              </div>
-              <span class="version-badge">Launcher Du R v2.0.6</span>
-            </div>
+      .preview-content {
+        padding: 16px;
+      }
 
-            <div class="download-panel">
-              <div>
-                <h3>LauncherDuR-Windows-2.0.6.zip</h3>
-                <p>
-                  Archive Windows prête à extraire. Lancez ensuite <strong>Launcher Du R.exe</strong> pour installer
-                  ou mettre à jour les jeux compatibles.
-                </p>
-              </div>
-              <a class="button button-primary" href="releases/LauncherDuR-Windows-2.0.6.zip" download>
-                <svg class="download-icon" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M12 3v11m0 0 4-4m-4 4-4-4M5 19h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                Télécharger
-              </a>
-            </div>
-          </div>
-        </section>
-
-        <section class="section alt" id="jeux" aria-labelledby="games-title">
-          <div class="section-inner">
-            <div class="section-head">
-              <div>
-                <h2 id="games-title">Jeux disponibles via le launcher</h2>
-                <p>Une seule porte d'entrée pour installer, lancer et suivre les versions.</p>
-              </div>
-            </div>
-
-            <div class="game-grid">
-              <article class="game-card">
-                <img src="images/ballon-rush.png" alt="Ballon Rush du R">
-                <div class="game-body">
-                  <h3>Ballon Rush du R</h3>
-                  <p>Jeu de ballons néon avec accès sécurisé et distribution Windows via le launcher.</p>
-                  <div class="tag-row">
-                    <span class="tag ok">Disponible</span>
-                    <span class="tag">Dernière version 1.0.2</span>
-                  </div>
-                </div>
-              </article>
-
-              <article class="game-card">
-                <img src="images/flash-carton.png" alt="Flash Carton du R">
-                <div class="game-body">
-                  <h3>Flash Carton du R</h3>
-                  <p>Jeu Flash Carton installé et mis à jour depuis les releases compatibles.</p>
-                  <div class="tag-row">
-                    <span class="tag update">Mise à jour dispo</span>
-                    <span class="tag">Version 1.1.0</span>
-                  </div>
-                </div>
-              </article>
-
-              <article class="game-card">
-                <img src="images/gratt-gratt.png" alt="Gratt-Gratt Du R">
-                <div class="game-body">
-                  <h3>Gratt-Gratt Du R</h3>
-                  <p>Prochain jeu préparé dans le catalogue du launcher.</p>
-                  <div class="tag-row">
-                    <span class="tag update">Bientôt disponible</span>
-                    <span class="tag">Catalogue Du R</span>
-                  </div>
-                </div>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <section class="section" id="installation" aria-labelledby="install-title">
-          <div class="section-inner">
-            <div class="section-head">
-              <div>
-                <h2 id="install-title">Installation rapide</h2>
-                <p>Le fichier de téléchargement pointe vers le launcher, puis le launcher s'occupe des jeux.</p>
-              </div>
-            </div>
-
-            <div class="steps">
-              <article class="step">
-                <h3>Télécharger</h3>
-                <p>Récupérez l'archive Windows depuis le bouton principal de Lergaming.fr.</p>
-              </article>
-              <article class="step">
-                <h3>Extraire</h3>
-                <p>Ouvrez le dossier extrait, puis démarrez <strong>Launcher Du R.exe</strong>.</p>
-              </article>
-              <article class="step">
-                <h3>Jouer</h3>
-                <p>Installez ou mettez à jour vos jeux directement depuis le launcher.</p>
-              </article>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <footer class="footer">
-        <div class="footer-inner">
-          <span>Lergaming.fr - Launcher Du R</span>
-          <a href="https://github.com/directeurrunytyagency-prog/Launcher-Du-R">Dépôt GitHub officiel</a>
-        </div>
-      </footer>
-    </div>
-  </body>
-</html>
+      .preview-title-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
