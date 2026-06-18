@@ -36,6 +36,7 @@
       "description": "Gratte et découvre si tu as gagné.",
       "version": "1.0.0",
       "status": "En cours de développement",
+      "statusColor": "orange",
       "image": "images/gratt-gratt.png"
     }
   ],
