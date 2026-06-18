@@ -45,28 +45,36 @@
   ],
   "news": [
     {
-      "title": "Ballon Rush du R 1.0.0",
-      "description": "Version officielle prête à être installée et lancée depuis GitHub Releases.",
-      "date": "2026-06-17",
-      "time": "12:00",
-      "icon": "●",
-      "label": "Ballon Rush du R"
+      "title": "Launcher Du R obligatoire",
+      "description": "Les jeux ne sont plus lancables via navigateur. Le Launcher Du R devient obligatoire pour acceder aux jeux. Les anciennes licences des versions navigateur seront progressivement desactivees et supprimees.",
+      "date": "2026-06-18",
+      "time": "00:56",
+      "icon": "!",
+      "gameId": ""
     },
     {
-      "title": "Flash Carton du R ajouté au launcher",
-      "description": "Carte visible comme jeu à venir, désactivée jusqu'à la publication officielle.",
-      "date": "2026-06-17",
-      "time": "12:05",
-      "icon": "◆",
-      "label": "Flash Carton du R"
-    },
-    {
-      "title": "Gratt-Gratt Du R en cours de développement",
-      "description": "Le jeu Gratt-Gratt Du R est en cours de développement. Ticket à 30 points, jusqu'à 300 points à gagner.",
+      "title": "Gratt-Gratt Du R en cours de developpement",
+      "description": "Le jeu Gratt-Gratt Du R est en cours de developpement. Ticket a 30 points, jusqu'a 300 points a gagner.",
       "date": "2026-06-18",
       "time": "00:15",
-      "icon": "✦",
-      "label": "Gratt-Gratt Du R"
+      "icon": "*",
+      "gameId": "gratt-gratt-du-r"
+    },
+    {
+      "title": "Flash Carton du R ajoute au launcher",
+      "description": "Carte visible comme jeu a venir, desactivee jusqu'a la publication officielle.",
+      "date": "2026-06-17",
+      "time": "12:05",
+      "icon": "+",
+      "gameId": "flash-carton-du-r"
+    },
+    {
+      "title": "Ballon Rush du R 1.0.2",
+      "description": "Version officielle Windows uniquement, prete a etre installee et lancee depuis le Launcher Du R.",
+      "date": "2026-06-17",
+      "time": "12:00",
+      "icon": "o",
+      "gameId": "ballon-rush-du-r"
     }
   ],
   "installationSteps": [
