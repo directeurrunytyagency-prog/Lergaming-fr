@@ -19,64 +19,10 @@
     "githubRepo": "Launcher-Du-R",
     "githubAssetPattern": "LauncherDuR-Windows"
   },
-  "games": [
-    {
-      "name": "Ballon Rush du R",
-      "description": "Éclate des ballons, gagne des points et bats ton record.",
-      "version": "1.0.2",
-      "status": "Disponible",
-      "image": "images/ballon-rush.png"
-    },
-    {
-      "name": "Flash Carton du R",
-      "description": "Gratte, découvre et tente de gagner gros.",
-      "version": "1.1.0",
-      "status": "Disponible",
-      "image": "images/flash-carton.png"
-    },
-    {
-      "name": "Gratt-Gratt Du R",
-      "description": "Gratte et découvre si tu as gagné.",
-      "version": "1.0.0",
-      "status": "En cours de développement",
-      "statusColor": "orange",
-      "image": "images/gratt-gratt.png"
-    }
-  ],
-  "news": [
-    {
-      "title": "Launcher Du R obligatoire",
-      "description": "Les jeux ne sont plus lançables via navigateur. Le Launcher Du R devient obligatoire pour accéder aux jeux. Les anciennes licences des versions navigateur seront progressivement désactivées et supprimées.",
-      "date": "2026-06-18",
-      "time": "00:56",
-      "icon": "!",
-      "label": "Launcher Du R"
-    },
-    {
-      "title": "Gratt-Gratt Du R en cours de développement",
-      "description": "Le jeu Gratt-Gratt Du R est en cours de développement. Ticket à 30 points, jusqu'à 300 points à gagner.",
-      "date": "2026-06-18",
-      "time": "00:15",
-      "icon": "*",
-      "label": "Gratt-Gratt Du R"
-    },
-    {
-      "title": "Flash Carton du R ajouté au launcher",
-      "description": "Carte visible comme jeu à venir, désactivée jusqu'à la publication officielle.",
-      "date": "2026-06-17",
-      "time": "12:05",
-      "icon": "+",
-      "label": "Flash Carton du R"
-    },
-    {
-      "title": "Ballon Rush du R 1.0.2",
-      "description": "Version officielle Windows uniquement, prête à être installée et lancée depuis le Launcher Du R.",
-      "date": "2026-06-17",
-      "time": "12:00",
-      "icon": "o",
-      "label": "Ballon Rush du R"
-    }
-  ],
+  "dataSources": {
+    "gamesUrl": "https://raw.githubusercontent.com/directeurrunytyagency-prog/Launcher-Du-R/main/launcher/games.json",
+    "newsUrl": "https://raw.githubusercontent.com/directeurrunytyagency-prog/Launcher-Du-R/main/launcher/news.json"
+  },
   "installationSteps": [
     {
       "title": "Télécharger",
