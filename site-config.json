@@ -1,0 +1,59 @@
+{
+  "site": {
+    "name": "Lergaming.fr",
+    "browserTitle": "Lergaming.fr - Launcher Du R",
+    "tagline": "Tous les jeux Du R au même endroit.",
+    "footerText": "© 2025 Lergaming.fr — Tous droits réservés."
+  },
+  "launcher": {
+    "name": "Launcher Du R",
+    "logo": "images/launcher-logo.png",
+    "platform": "Windows",
+    "version": "2.0.6",
+    "fileSize": "6,1 Mo",
+    "downloadLabel": "Télécharger le launcher",
+    "downloadUrl": "https://github.com/directeurrunytyagency-prog/Launcher-Du-R/releases/download/v2.0.6/LauncherDuR-Windows-2.0.6.zip",
+    "notesLabel": "Notes v2.0.6",
+    "notesUrl": "https://github.com/directeurrunytyagency-prog/Launcher-Du-R/releases/tag/v2.0.6"
+  },
+  "games": [
+    {
+      "name": "Ballon Rush du R",
+      "description": "Éclate des ballons, gagne des points et bats ton record.",
+      "version": "1.0.2",
+      "status": "Disponible",
+      "image": "images/ballon-rush.png"
+    },
+    {
+      "name": "Flash Carton du R",
+      "description": "Gratte, découvre et tente de gagner gros.",
+      "version": "1.1.0",
+      "status": "Disponible",
+      "image": "images/flash-carton.png"
+    },
+    {
+      "name": "Gratt-Gratt Du R",
+      "description": "Gratte et découvre si tu as gagné.",
+      "version": "1.0.0",
+      "status": "Disponible",
+      "image": "images/gratt-gratt.png"
+    }
+  ],
+  "installationSteps": [
+    {
+      "title": "Télécharger",
+      "text": "Télécharge le fichier ZIP du launcher.",
+      "icon": "download"
+    },
+    {
+      "title": "Extraire",
+      "text": "Extrait le contenu du ZIP où tu veux.",
+      "icon": "folder"
+    },
+    {
+      "title": "Lancer",
+      "text": "Ouvre Launcher Du R.exe et profite !",
+      "icon": "play"
+    }
+  ]
+}
