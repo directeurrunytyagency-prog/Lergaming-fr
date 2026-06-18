@@ -9,12 +9,12 @@
     "name": "Launcher Du R",
     "logo": "images/launcher-logo.png",
     "platform": "Windows",
-    "version": "2.0.6",
+    "version": "2.0.7",
     "fileSize": "6,1 Mo",
     "downloadLabel": "Télécharger le launcher",
-    "downloadUrl": "https://github.com/directeurrunytyagency-prog/Launcher-Du-R/releases/download/v2.0.6/LauncherDuR-Windows-2.0.6.zip",
-    "notesLabel": "Notes v2.0.6",
-    "notesUrl": "https://github.com/directeurrunytyagency-prog/Launcher-Du-R/releases/tag/v2.0.6",
+    "downloadUrl": "https://github.com/directeurrunytyagency-prog/Launcher-Du-R/releases/download/v2.0.7/LauncherDuR-Windows-2.0.7.zip",
+    "notesLabel": "Notes v2.0.7",
+    "notesUrl": "https://github.com/directeurrunytyagency-prog/Launcher-Du-R/releases/tag/v2.0.7",
     "githubOwner": "directeurrunytyagency-prog",
     "githubRepo": "Launcher-Du-R",
     "githubAssetPattern": "LauncherDuR-Windows"
@@ -30,7 +30,7 @@
     {
       "name": "Flash Carton du R",
       "description": "Gratte, découvre et tente de gagner gros.",
-      "version": "1.1.1",
+      "version": "1.1.0",
       "status": "Disponible",
       "image": "images/flash-carton.png"
     },
@@ -46,35 +46,35 @@
   "news": [
     {
       "title": "Launcher Du R obligatoire",
-      "description": "Les jeux ne sont plus lancables via navigateur. Le Launcher Du R devient obligatoire pour acceder aux jeux. Les anciennes licences des versions navigateur seront progressivement desactivees et supprimees.",
+      "description": "Les jeux ne sont plus lançables via navigateur. Le Launcher Du R devient obligatoire pour accéder aux jeux. Les anciennes licences des versions navigateur seront progressivement désactivées et supprimées.",
       "date": "2026-06-18",
       "time": "00:56",
       "icon": "!",
-      "gameId": ""
+      "label": "Launcher Du R"
     },
     {
-      "title": "Gratt-Gratt Du R en cours de developpement",
-      "description": "Le jeu Gratt-Gratt Du R est en cours de developpement. Ticket a 30 points, jusqu'a 300 points a gagner.",
+      "title": "Gratt-Gratt Du R en cours de développement",
+      "description": "Le jeu Gratt-Gratt Du R est en cours de développement. Ticket à 30 points, jusqu'à 300 points à gagner.",
       "date": "2026-06-18",
       "time": "00:15",
       "icon": "*",
-      "gameId": "gratt-gratt-du-r"
+      "label": "Gratt-Gratt Du R"
     },
     {
-      "title": "Flash Carton du R ajoute au launcher",
-      "description": "Carte visible comme jeu a venir, desactivee jusqu'a la publication officielle.",
+      "title": "Flash Carton du R ajouté au launcher",
+      "description": "Carte visible comme jeu à venir, désactivée jusqu'à la publication officielle.",
       "date": "2026-06-17",
       "time": "12:05",
       "icon": "+",
-      "gameId": "flash-carton-du-r"
+      "label": "Flash Carton du R"
     },
     {
       "title": "Ballon Rush du R 1.0.2",
-      "description": "Version officielle Windows uniquement, prete a etre installee et lancee depuis le Launcher Du R.",
+      "description": "Version officielle Windows uniquement, prête à être installée et lancée depuis le Launcher Du R.",
       "date": "2026-06-17",
       "time": "12:00",
       "icon": "o",
-      "gameId": "ballon-rush-du-r"
+      "label": "Ballon Rush du R"
     }
   ],
   "installationSteps": [
