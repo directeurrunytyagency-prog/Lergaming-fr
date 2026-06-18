@@ -36,7 +36,10 @@
       body {
         margin: 0;
         color: var(--text);
-        background: var(--page);
+        background:
+          linear-gradient(135deg, rgba(11, 109, 255, 0.08), transparent 34%),
+          linear-gradient(315deg, rgba(236, 23, 123, 0.14), transparent 42%),
+          var(--bg);
         font-family: "Segoe UI", Arial, sans-serif;
         letter-spacing: 0;
       }
@@ -57,15 +60,16 @@
       }
 
       .page-frame {
-        width: min(1180px, calc(100% - 40px));
-        margin: 30px auto;
+        width: 100%;
+        min-height: 100vh;
+        margin: 0;
         overflow: hidden;
-        border: 1px solid rgba(0, 0, 0, 0.1);
+        border: 0;
         background:
           linear-gradient(130deg, rgba(12, 112, 255, 0.08), transparent 34%),
           linear-gradient(330deg, rgba(236, 23, 123, 0.12), transparent 38%),
           var(--bg);
-        box-shadow: 0 22px 54px rgba(0, 0, 0, 0.2);
+        box-shadow: none;
       }
 
       .topbar {
@@ -78,8 +82,8 @@
         align-items: center;
         justify-content: space-between;
         gap: 28px;
-        width: min(1080px, calc(100% - 48px));
-        min-height: 64px;
+        width: min(1320px, calc(100% - 48px));
+        min-height: 76px;
         margin: 0 auto;
       }
 
@@ -138,13 +142,13 @@
 
       .hero {
         display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(360px, 480px);
+        grid-template-columns: minmax(420px, 0.9fr) minmax(560px, 1.1fr);
         align-items: center;
-        gap: 54px;
-        width: min(1080px, calc(100% - 48px));
-        min-height: 300px;
+        gap: 66px;
+        width: min(1320px, calc(100% - 48px));
+        min-height: 390px;
         margin: 0 auto;
-        padding: 34px 0 28px;
+        padding: 48px 0 34px;
       }
 
       .hero h1 {
@@ -152,6 +156,14 @@
         font-size: clamp(42px, 5vw, 54px);
         line-height: 1;
         font-weight: 900;
+      }
+
+      .hero-logo-title img {
+        width: min(430px, 100%);
+        height: auto;
+        object-fit: contain;
+        object-position: left center;
+        filter: drop-shadow(0 0 18px rgba(236, 23, 123, 0.66));
       }
 
       .hero p {
@@ -232,13 +244,15 @@
       }
 
       .launcher-preview {
-        padding: 14px;
+        min-height: 330px;
+        padding: 0;
         border: 1px solid var(--line);
         border-radius: 8px;
         background:
           linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.025)),
           rgba(1, 5, 14, 0.92);
         box-shadow: 0 18px 38px rgba(0, 0, 0, 0.28);
+        overflow: hidden;
       }
 
       .preview-top {
@@ -246,8 +260,9 @@
         align-items: center;
         justify-content: space-between;
         gap: 12px;
-        min-height: 30px;
-        padding-bottom: 10px;
+        min-height: 42px;
+        padding: 0 14px;
+        border-bottom: 1px solid var(--line-soft);
         color: #d9deea;
         font-size: 11px;
         font-weight: 800;
@@ -255,42 +270,79 @@
 
       .preview-dots {
         display: flex;
-        gap: 10px;
-        color: #7c8494;
+        gap: 18px;
+        color: #ff42c8;
+        font-size: 17px;
+        text-shadow: 0 0 10px rgba(255, 66, 200, 0.58);
       }
 
       .preview-body {
         display: grid;
-        grid-template-columns: 104px 1fr;
-        min-height: 210px;
-        border: 1px solid var(--line-soft);
-        border-radius: 8px;
+        grid-template-columns: 150px 1fr;
+        min-height: 288px;
+        border: 0;
+        border-radius: 0;
         overflow: hidden;
         background: rgba(255, 255, 255, 0.025);
       }
 
       .preview-sidebar {
-        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 14px 12px;
         border-right: 1px solid var(--line-soft);
-        background: rgba(0, 0, 0, 0.16);
+        background:
+          linear-gradient(180deg, rgba(20, 12, 52, 0.78), rgba(3, 5, 18, 0.92)),
+          rgba(0, 0, 0, 0.16);
       }
 
       .preview-tab {
-        display: block;
-        padding: 8px 10px;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        min-height: 42px;
+        padding: 0 12px;
         border-radius: 6px;
-        color: #c7cdd9;
-        font-size: 11px;
+        color: #f0f2fb;
+        font-size: 12px;
         font-weight: 800;
+      }
+
+      .preview-tab::before {
+        content: "";
+        width: 9px;
+        height: 9px;
+        border: 2px solid currentColor;
+        border-radius: 3px;
       }
 
       .preview-tab.active {
         color: #ffffff;
-        background: linear-gradient(105deg, rgba(236, 23, 123, 0.7), rgba(100, 39, 236, 0.52));
+        background: linear-gradient(105deg, rgba(236, 23, 123, 0.78), rgba(100, 39, 236, 0.52));
+        box-shadow: inset 0 0 20px rgba(236, 23, 123, 0.2);
+      }
+
+      .preview-logo {
+        width: 122px;
+        height: 52px;
+        object-fit: contain;
+        object-position: left center;
+        margin-bottom: 6px;
+        filter: drop-shadow(0 0 14px rgba(236, 23, 123, 0.72));
+      }
+
+      .preview-footer-logo {
+        width: 74px;
+        margin: auto auto 0;
+        aspect-ratio: 1;
+        object-fit: contain;
+        filter: drop-shadow(0 0 18px rgba(236, 23, 123, 0.42));
       }
 
       .preview-content {
-        padding: 16px;
+        min-width: 0;
+        padding: 20px 22px 22px;
       }
 
       .preview-title-row {
@@ -298,16 +350,45 @@
         align-items: center;
         justify-content: space-between;
         gap: 16px;
-        margin-bottom: 12px;
+        margin-bottom: 14px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--line-soft);
       }
 
-      .preview-title-row strong {
-        font-size: 15px;
+      .preview-welcome strong {
+        display: block;
+        font-size: 26px;
+        line-height: 1.08;
+      }
+
+      .preview-welcome strong span {
+        color: #ff48c8;
+        font-style: italic;
+      }
+
+      .preview-welcome small {
+        display: block;
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .preview-version {
+        min-width: 74px;
+        padding: 9px 12px;
+        border: 1px solid rgba(236, 23, 123, 0.5);
+        border-radius: 8px;
+        color: #ff96e0;
+        background: rgba(11, 4, 25, 0.72);
+        font-size: 16px;
+        font-weight: 900;
+        text-align: center;
       }
 
       .online {
         color: #b8ffd8;
-        font-size: 11px;
+        font-size: 12px;
         font-weight: 800;
       }
 
@@ -325,29 +406,31 @@
       .preview-games {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 12px;
+        gap: 14px;
       }
 
       .preview-card {
+        position: relative;
         min-width: 0;
-        padding: 9px;
-        border: 1px solid var(--line-soft);
+        min-height: 156px;
+        padding: 0;
+        border: 1px solid rgba(115, 79, 255, 0.44);
         border-radius: 8px;
-        background: rgba(255, 255, 255, 0.035);
+        background: rgba(4, 5, 18, 0.86);
+        overflow: hidden;
       }
 
       .preview-card img {
         width: 100%;
-        aspect-ratio: 1.2;
+        height: 76px;
         object-fit: cover;
-        border-radius: 6px;
       }
 
       .preview-card strong {
         display: block;
-        min-height: 26px;
-        margin-top: 8px;
-        font-size: 11px;
+        min-height: 32px;
+        padding: 10px 10px 0;
+        font-size: 12px;
         line-height: 1.2;
       }
 
@@ -356,9 +439,9 @@
         align-items: center;
         justify-content: center;
         min-height: 24px;
-        width: 100%;
-        margin-top: 8px;
-        border: 1px solid rgba(236, 23, 123, 0.45);
+        width: calc(100% - 20px);
+        margin: 8px 10px 10px;
+        border: 1px solid rgba(236, 23, 123, 0.72);
         border-radius: 999px;
         color: #ff6eb1;
         font-size: 10px;
@@ -366,8 +449,8 @@
       }
 
       .content-panel {
-        width: min(1080px, calc(100% - 48px));
-        margin: 0 auto 38px;
+        width: min(1320px, calc(100% - 48px));
+        margin: 0 auto 48px;
         border: 1px solid var(--line);
         border-radius: 8px;
         background:
@@ -715,7 +798,9 @@
       <main id="accueil">
         <section class="hero" aria-labelledby="hero-title">
           <div class="hero-copy">
-            <h1 id="hero-title" data-config="launcher.name">Launcher Du R</h1>
+            <h1 id="hero-title" class="hero-logo-title" aria-label="Launcher Du R">
+              <img data-config="launcher.logo" src="images/launcher-logo.png" alt="Launcher Du R">
+            </h1>
             <p data-config="site.tagline">Tous les jeux Du R au même endroit.</p>
 
             <a class="primary-button" data-download-link href="#">
@@ -745,12 +830,22 @@
             </div>
             <div class="preview-body">
               <div class="preview-sidebar">
+                <img class="preview-logo" data-config="launcher.logo" src="images/launcher-logo.png" alt="Launcher Du R">
                 <span class="preview-tab active">Accueil</span>
-                <span class="preview-tab">Jeux</span>
-                <span class="preview-tab">Téléchargements</span>
+                <span class="preview-tab">Mes jeux</span>
+                <span class="preview-tab">Mises à jour</span>
                 <span class="preview-tab">Paramètres</span>
+                <span class="preview-tab">Journal</span>
+                <img class="preview-footer-logo" data-config="launcher.logo" src="images/launcher-logo.png" alt="">
               </div>
               <div class="preview-content">
+                <div class="preview-title-row">
+                  <div class="preview-welcome">
+                    <strong>Bienvenue, <span>Joueur !</span></strong>
+                    <small>Tous vos jeux. Toujours à jour.</small>
+                  </div>
+                  <span class="preview-version">v<span data-config="launcher.version">2.0.6</span></span>
+                </div>
                 <div class="preview-title-row">
                   <strong>Mes jeux</strong>
                   <span class="online">En ligne</span>
