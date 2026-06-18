@@ -8,6 +8,7 @@
       name="description"
       content="Lergaming.fr regroupe les jeux Du R et le téléchargement officiel du Launcher Du R pour Windows."
     >
+    <link rel="icon" href="images/launcher-logo.png">
     <style>
       :root {
         --page: #f4f4f5;
@@ -1013,6 +1014,11 @@
         play: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"></path></svg>'
       };
 
+      const defaultDataSources = {
+        gamesUrl: "https://raw.githubusercontent.com/directeurrunytyagency-prog/Launcher-Du-R/main/launcher/games.json",
+        newsUrl: "https://raw.githubusercontent.com/directeurrunytyagency-prog/Launcher-Du-R/main/launcher/news.json"
+      };
+
       const getValue = (source, path) =>
         path.split(".").reduce((value, key) => (value && value[key] !== undefined ? value[key] : ""), source);
 
@@ -1039,14 +1045,40 @@
         });
       };
 
+      const escapeHtml = (value) =>
+        String(value ?? "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+
+      const escapeAttribute = (value) => escapeHtml(value).replaceAll("`", "&#096;");
+
       const getStatusClass = (game) => {
         const color = (game.statusColor || "").toLowerCase();
         const status = (game.status || "").toLowerCase();
-        if (color === "orange" || status.includes("développement") || status.includes("developpement")) {
+        if (
+          color === "orange" ||
+          game.placeholder ||
+          game.accent === "gold" ||
+          status.includes("développement") ||
+          status.includes("developpement") ||
+          status.includes("bientôt") ||
+          status.includes("bientot") ||
+          status.includes("venir")
+        ) {
           return "orange";
         }
 
         return "";
+      };
+
+      const formatDisplayVersion = (version) => {
+        const value = String(version || "").trim();
+        if (!value) return "";
+        if (value.toLowerCase().startsWith("v")) return value;
+        return /^\d+(\.\d+)*$/.test(value) ? `v${value}` : value;
       };
 
       const formatVersion = (tagName) => (tagName || "").replace(/^v/i, "");
@@ -1107,13 +1139,106 @@
         }
       };
 
+      const loadJson = async (url, label) => {
+        const response = await fetch(url, { cache: "no-store" });
+        if (!response.ok) {
+          throw new Error(`${label} introuvable (${response.status})`);
+        }
+
+        return response.json();
+      };
+
+      const resolveRemoteAssetUrl = (assetPath, sourceUrl) => {
+        const value = String(assetPath || "").trim();
+        if (!value) return "";
+        if (/^https?:\/\//i.test(value)) return value;
+
+        const launcherRoot = "https://raw.githubusercontent.com/directeurrunytyagency-prog/Launcher-Du-R/main/";
+        if (value.startsWith("launcher/")) {
+          return new URL(value, launcherRoot).href;
+        }
+
+        return new URL(value.replace(/^\.\//, ""), sourceUrl).href;
+      };
+
+      const resolveLocalImageFallback = (assetPath) => {
+        const fileName = String(assetPath || "").split(/[\\/]/).pop();
+        return fileName ? `images/${fileName}` : "images/launcher-logo.png";
+      };
+
+      const normalizeLauncherGame = (game, sourceUrl) => {
+        const imagePath = game.image || game.imageUrl || game.icone || game.iconUrl;
+        const placeholder = game.placeholder === true || game.enabled === false;
+        const status =
+          game.statusLabel ||
+          game.status ||
+          (placeholder ? "En cours de développement" : "Disponible");
+        const version =
+          game.derniereVersion ||
+          game.latestVersion ||
+          game.version ||
+          (placeholder ? "A venir" : "");
+
+        return {
+          id: game.id || "",
+          name: game.nom || game.name || "Jeu",
+          description: game.description || "",
+          version,
+          status,
+          statusColor: game.statusColor || (placeholder || game.accent === "gold" ? "orange" : ""),
+          image: resolveRemoteAssetUrl(imagePath, sourceUrl),
+          fallbackImage: resolveLocalImageFallback(imagePath),
+          placeholder,
+          accent: game.accent || ""
+        };
+      };
+
+      const normalizeLauncherGames = (catalog, sourceUrl) =>
+        (catalog.games || [])
+          .filter((game) => game.visible !== false)
+          .map((game) => normalizeLauncherGame(game, sourceUrl));
+
+      const normalizeLauncherNews = (newsCatalog, games) => {
+        const gameNames = new Map(games.map((game) => [game.id, game.name]));
+        return (newsCatalog.news || []).map((item) => ({
+          title: item.title || "",
+          description: item.description || "",
+          date: item.date || "",
+          time: item.time || "",
+          icon: item.icon || "●",
+          label: item.label || gameNames.get(item.gameId) || item.gameId || "Launcher Du R"
+        }));
+      };
+
+      const loadDynamicLauncherContent = async (config) => {
+        const dataSources = {
+          ...defaultDataSources,
+          ...(config.dataSources || {})
+        };
+        const gamesCatalog = await loadJson(dataSources.gamesUrl, "games.json");
+        const newsCatalog = await loadJson(dataSources.newsUrl, "news.json");
+        const games = normalizeLauncherGames(gamesCatalog, dataSources.gamesUrl);
+        const news = normalizeLauncherNews(newsCatalog, games);
+
+        return {
+          ...config,
+          games,
+          news,
+          launcher: {
+            ...config.launcher,
+            name: gamesCatalog.launcherName || config.launcher?.name,
+            version: config.launcher?.version || gamesCatalog.launcherVersion
+          }
+        };
+      };
+
       const renderPreviewGames = (games) => {
         const container = document.querySelector("[data-preview-games]");
         container.innerHTML = games.slice(0, 3).map((game) => `
           <article class="preview-card">
-            <img src="${game.image}" alt="${game.name}">
-            <strong>${game.name}</strong>
-            <span>Jouer</span>
+            <img src="${escapeAttribute(game.image)}" alt="${escapeAttribute(game.name)}" onerror="this.onerror=null;this.src='${escapeAttribute(game.fallbackImage)}';">
+            <strong>${escapeHtml(game.name)}</strong>
+            <span>${game.placeholder ? "Bientôt" : "Jouer"}</span>
           </article>
         `).join("");
       };
@@ -1122,13 +1247,13 @@
         const container = document.querySelector("[data-games-list]");
         container.innerHTML = games.map((game) => `
           <article class="game-card">
-            <img src="${game.image}" alt="${game.name}">
+            <img src="${escapeAttribute(game.image)}" alt="${escapeAttribute(game.name)}" onerror="this.onerror=null;this.src='${escapeAttribute(game.fallbackImage)}';">
             <div class="game-info">
-              <h3>${game.name}</h3>
-              <p>${game.description}</p>
+              <h3>${escapeHtml(game.name)}</h3>
+              <p>${escapeHtml(game.description)}</p>
               <div class="game-meta">
-                <span class="status-pill ${getStatusClass(game)}">${game.status}</span>
-                <span class="game-version">v${game.version}</span>
+                <span class="status-pill ${getStatusClass(game)}">${escapeHtml(game.status)}</span>
+                <span class="game-version">${escapeHtml(formatDisplayVersion(game.version))}</span>
               </div>
             </div>
           </article>
@@ -1139,13 +1264,13 @@
         const container = document.querySelector("[data-news-list]");
         container.innerHTML = news.map((item) => `
           <article class="news-item">
-            <span class="news-icon" aria-hidden="true">${item.icon || "●"}</span>
+            <span class="news-icon" aria-hidden="true">${escapeHtml(item.icon || "●")}</span>
             <div class="news-copy">
-              <h3>${item.title}</h3>
-              <p>${item.description}</p>
-              <small>${item.label || "Launcher Du R"}</small>
+              <h3>${escapeHtml(item.title)}</h3>
+              <p>${escapeHtml(item.description)}</p>
+              <small>${escapeHtml(item.label || "Launcher Du R")}</small>
             </div>
-            <time class="news-date">${item.date || ""}${item.time ? `<br>${item.time}` : ""}</time>
+            <time class="news-date">${escapeHtml(item.date || "")}${item.time ? `<br>${escapeHtml(item.time)}` : ""}</time>
           </article>
         `).join("");
       };
@@ -1189,12 +1314,13 @@
           return response.json();
         })
         .then(loadLatestLauncherRelease)
+        .then(loadDynamicLauncherContent)
         .then(applyConfig)
         .catch((error) => {
           console.error(error);
-          setText("[data-games-list]", "Impossible de charger site-config.json.");
+          setText("[data-games-list]", "Impossible de charger games.json depuis GitHub.");
           setText("[data-news-list]", "Impossible de charger les actualités.");
-          setText("[data-installation-steps]", "Vérifiez que site-config.json est bien à la racine du dépôt.");
+          setText("[data-installation-steps]", "Vérifiez site-config.json, games.json et news.json.");
         });
     </script>
   </body>
